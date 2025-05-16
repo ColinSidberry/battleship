@@ -124,15 +124,11 @@ export function useBattleship() {
     const newGrid = grid.map(row => row.map(cell => ({ ...cell }))) as Cell[][];
     
     // Place ships in order of size (largest to smallest)
-    const ships = Object.entries(SHIP_SIZES).sort((a, b) => b[1] - a[1]);
-    
-    ships.forEach(([shipType, size]) => {
+    Object.entries(SHIP_SIZES).forEach(([shipType, size]) => {
       const ship = shipType as ShipType;
       let placed = false;
-      let attempts = 0;
-      const MAX_ATTEMPTS = 100; // Prevent infinite loop
 
-      while (!placed && attempts < MAX_ATTEMPTS) {
+      while (!placed) {
         const horizontal = Math.random() > 0.5;
         const row = Math.floor(Math.random() * GRID_SIZE);
         const col = Math.floor(Math.random() * GRID_SIZE);
@@ -141,11 +137,6 @@ export function useBattleship() {
           placeShip(row, col, ship, size, horizontal, newGrid);
           placed = true;
         }
-        attempts++;
-      }
-
-      if (!placed) {
-        console.warn(`Failed to place ${ship} after ${MAX_ATTEMPTS} attempts`);
       }
     });
 
