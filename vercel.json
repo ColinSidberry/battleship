@@ -1,12 +1,11 @@
 {
-  "version": 3,
+  "version": 2,
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build",
+      "use": "@vercel/next",
       "config": {
-        "distDir": "dist",
-        "framework": "nextjs"
+        "distDir": ".next"
       }
     }
   ],
